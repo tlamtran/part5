@@ -89,7 +89,7 @@ const App = () => {
                 <h2>blogs</h2> 
                 <p>{user.name} logged in <button onClick={handleLogout}>logout</button></p>
                 <Toggleable buttonLabel="new blog">
-                    <BlogForm handleCreate={handleCreate} />
+                    <BlogForm handleCreate={handleCreate} user={user}/>
                 </Toggleable>
                 
                 {
