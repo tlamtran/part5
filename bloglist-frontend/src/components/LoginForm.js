@@ -9,7 +9,7 @@ const LoginForm = ({ handleLogin }) => {
         const credentials = {
             username, password
         }
-        handleLogin(credentials)
+        await handleLogin(credentials)
         setUsername('')
         setPassword('')
     }
