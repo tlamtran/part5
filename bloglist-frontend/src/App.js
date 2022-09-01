@@ -91,13 +91,10 @@ const App = () => {
                 <Toggleable buttonLabel="new blog">
                     <BlogForm handleCreate={handleCreate} />
                 </Toggleable>
-                {blogs.map(blog => 
-                    <Blog 
-                        key={blog.id} 
-                        blog={blog} 
-                    />
-                )}
-
+                
+                {blogs
+                    .sort( (a,b) => b.likes - a.likes )
+                    .map(blog => <Blog key={blog.id} blog={blog}/>)}
             </div>
         )
     }
@@ -105,6 +102,7 @@ const App = () => {
     else {
         return(
             <div>
+                <h2>log in to application</h2>
                 <Notification message={message} style={messageStyle}/>
                 <LoginForm handleLogin={handleLogin}/>
             </div>
