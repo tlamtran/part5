@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Blog from './components/Blog'
 import Notification from './components/Notification'
 import LoginForm from './components/LoginForm'
@@ -13,11 +13,13 @@ const App = () => {
     const [message, setMessage] = useState(null)
     const [messageStyle, setMessageStyle] = useState('')
 
+    const blogFormRef = useRef()
+
     useEffect(() => {
         blogService
             .getAll()
             .then(blogs =>
-                setBlogs( blogs )
+                setBlogs(blogs)
             )    
     }, [])
 
@@ -42,8 +44,7 @@ const App = () => {
         }, 5000)
     }
 
-    const handleLogin = async (event, credentials) => {
-        event.preventDefault()
+    const handleLogin = async credentials => {
         try {
             const user = await loginService.login(credentials)
 
@@ -69,11 +70,13 @@ const App = () => {
         }
     } 
 
-    const handleCreate = (event, newBlog) => {
-        event.preventDefault()
-        setBlogs(blogs.concat(newBlog))
-        blogService.create(newBlog)
+    const handleCreate = async newBlog => {
+        blogFormRef.current.toggleVisibility()
+        await blogService.create(newBlog)
+        const updatedBlogs = await blogService.getAll()
+        setBlogs(updatedBlogs)
 
+        
         setMessageStyle('success')
         setMessage(`a new blog ${newBlog.title} by ${newBlog.author} added`)
         setTimeout( () => {
@@ -88,7 +91,7 @@ const App = () => {
                 <Notification message={message} style={messageStyle}/>
                 <h2>blogs</h2> 
                 <p>{user.name} logged in <button onClick={handleLogout}>logout</button></p>
-                <Toggleable buttonLabel="new blog">
+                <Toggleable buttonLabel="new blog" ref={blogFormRef}>
                     <BlogForm handleCreate={handleCreate} user={user}/>
                 </Toggleable>
                 

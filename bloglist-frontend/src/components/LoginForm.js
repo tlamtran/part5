@@ -5,12 +5,13 @@ const LoginForm = ({ handleLogin }) => {
     const [password, setPassword] = useState('')
 
     const login = async (event) => {
+        event.preventDefault()
         const credentials = {
             username, password
         }
+        handleLogin(credentials)
         setUsername('')
         setPassword('')
-        handleLogin(event, credentials)
     }
 
     return(

@@ -6,6 +6,7 @@ const BlogForm = ({handleCreate, user}) => {
     const [url, setUrl] = useState('')
 
     const addBlog = (event) => {
+        event.preventDefault()
         const newBlog = {
             title: title,
             author: author,
@@ -15,8 +16,9 @@ const BlogForm = ({handleCreate, user}) => {
         setTitle('')    
         setAuthor('')
         setUrl('')
-        handleCreate(event, newBlog)
+        handleCreate(newBlog)
     }
+
     return(
         <div>
             <h2>create new</h2>
