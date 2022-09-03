@@ -1,20 +1,21 @@
-import { useState } from "react"
-import blogService from "../services/blogs"
+import { useState } from 'react'
+import PropTypes from 'prop-types'
+import blogService from '../services/blogs'
 
-const Blog = ({blog, user, blogs, setBlogs}) => {
+const Blog = ({ blog, user, blogs, setBlogs }) => {
     const blogStyle = {
         paddingTop: 10,
         paddingLeft: 2,
         border: 'solid',
         borderWidth: 1,
-        marginBottom: 5 
+        marginBottom: 5
     }
 
     const [likes, setLikes] = useState(blog.likes)
     const [visible, setVisible] = useState(false)
 
-    const showIfTrue = {display: visible ? '' : 'none'}
-    const showRemoveButton = {display: user.name === blog.user.name ? '' : 'none'}
+    const showIfTrue = { display: visible ? '' : 'none' }
+    const showRemoveButton = { display: user.name === blog.user.name ? '' : 'none' }
 
     const toggleVisibility = () => {
         setVisible(!visible)
@@ -36,9 +37,9 @@ const Blog = ({blog, user, blogs, setBlogs}) => {
     return(
         <div style={blogStyle}>
             <div>
-                {blog.title} {blog.author} 
+                {blog.title} {blog.author}
                 <button onClick={toggleVisibility}>
-                    {visible ? "hide" : "view"}
+                    {visible ? 'hide' : 'view'}
                 </button>
             </div>
             <div style={showIfTrue}>
@@ -56,6 +57,13 @@ const Blog = ({blog, user, blogs, setBlogs}) => {
             </div>
         </div>
     )
+}
+
+Blog.propTypes = {
+    blog: PropTypes.object.isRequired,
+    user: PropTypes.object.isRequired,
+    blogs: PropTypes.array.isRequired,
+    setBlogs: PropTypes.func.isRequired
 }
 
 export default Blog

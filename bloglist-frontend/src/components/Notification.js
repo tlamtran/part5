@@ -1,4 +1,6 @@
-const Notification = ({message, style}) => {
+import PropTypes from 'prop-types'
+
+const Notification = ({ message, style }) => {
     const errorStyle = {
         color: 'red',
         background: 'lightgrey',
@@ -27,13 +29,17 @@ const Notification = ({message, style}) => {
         return(
             <p style={
                 style === 'error'
-                ? errorStyle
-                : successStyle
+                    ? errorStyle
+                    : successStyle
             }>
-            {message}
+                {message}
             </p>
         )
     }
+}
+
+Notification.propTypes = {
+    style: PropTypes.string.isRequired,
 }
 
 export default Notification
