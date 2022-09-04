@@ -83,6 +83,17 @@ const App = () => {
         }, 5000)
     }
 
+    const handleLike = async blog => {
+        await blogService.incrementLike(blog)
+    }
+
+    const handleRemove = async blog => {
+        if (window.confirm(`Remove blog ${blog.title} by ${blog.author}?`)) {
+            await blogService.remove(blog)
+            setBlogs(blogs.filter( b => b.id !== blog.id ))
+        }
+    }
+
     if (user) {
         return(
             <div>
@@ -102,6 +113,8 @@ const App = () => {
                                 user={user}
                                 blogs={blogs}
                                 setBlogs={setBlogs}
+                                handleRemove={handleRemove}
+                                handlelike={handleLike}
                             />
                         )
                 }
