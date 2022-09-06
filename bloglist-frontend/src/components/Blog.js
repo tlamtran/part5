@@ -20,7 +20,7 @@ const Blog = ({ blog, user, handleLike, handleRemove }) => {
         setVisible(!visible)
     }
 
-    const like = async () => {
+    const like = () => {
         setLikes(likes + 1)
         blog.likes = likes
         handleLike(blog)
@@ -34,7 +34,7 @@ const Blog = ({ blog, user, handleLike, handleRemove }) => {
         <div style={blogStyle} className='blogContent'>
             <div>
                 {blog.title} {blog.author}
-                <button onClick={toggleVisibility}>
+                <button onClick={toggleVisibility} id='show-button'>
                     {visible ? 'hide' : 'view'}
                 </button>
             </div>

@@ -16,17 +16,38 @@ describe('Blog app', function() {
 
     describe('Login', function() {
         it('Login succesful', function() {
-            cy.get('#username').type('testusername')
-            cy.get('#password').type('testpassword')
-            cy.get('#login-button').click()
+            cy.login({ username: 'testusername', password: 'testpassword' })
             cy.contains('test logged in')
         })
 
         it('Login unsuccesful', function() {
-            cy.get('#username').type('incorrect')
-            cy.get('#password').type('incorrect')
-            cy.get('#login-button').click()
+            cy.login({ username: 'wrong', password: 'wrong' })
             cy.contains('Wrong username or password')
+        })
+    })
+
+    describe('When logged in', function() {
+        beforeEach(() => {
+            cy.login({ username: 'testusername', password: 'testpassword' })
+        })
+
+        it('A blog can be created', function() {
+            cy.create({
+                title: 'testtitle',
+                author: 'testauthor',
+                url: 'testurl'
+            })
+        })
+
+        it('Can like a blog', function() {
+            cy.create({
+                title: 'testtitle',
+                author: 'testauthor',
+                url: 'testurl'
+            })
+            cy.get('#show-button').click()
+            cy.get('.likeButton').click()
+            cy.contains('likes 1')
         })
     })
 })

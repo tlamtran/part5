@@ -114,7 +114,7 @@ const App = () => {
                                 blogs={blogs}
                                 setBlogs={setBlogs}
                                 handleRemove={handleRemove}
-                                handlelike={handleLike}
+                                handleLike={handleLike}
                             />
                         )
                 }
