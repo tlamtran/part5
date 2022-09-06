@@ -37,6 +37,7 @@ describe('Blog app', function() {
                 author: 'testauthor',
                 url: 'testurl'
             })
+            cy.contains('testtitle testauthor')
         })
 
         it('Can like a blog', function() {
@@ -48,6 +49,17 @@ describe('Blog app', function() {
             cy.get('#show-button').click()
             cy.get('.likeButton').click()
             cy.contains('likes 1')
+        })
+
+        it('Can remove own blog', function() {
+            cy.create({
+                title: 'testtitle',
+                author: 'testauthor',
+                url: 'testurl'
+            })
+            cy.get('#show-button').click()
+            cy.contains('remove').click()
+            cy.contains('testtitle testauthor').should('not.exist')
         })
     })
 })
