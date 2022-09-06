@@ -100,7 +100,7 @@ const App = () => {
                 <Notification message={message} style={messageStyle}/>
                 <h2>blogs</h2>
                 <p>{user.name} logged in <button onClick={handleLogout}>logout</button></p>
-                <Toggleable buttonLabel="new blog" ref={blogFormRef}>
+                <Toggleable buttonLabel="add new blog" ref={blogFormRef}>
                     <BlogForm handleCreate={handleCreate} user={user}/>
                 </Toggleable>
                 {
